@@ -1,0 +1,17 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @recipe.name
+%p
+  - if !@recipe.recipe_ingredients.empty? then
+    %b Ingredients:
+    %ol
+      - @recipe.recipe_ingredients.each do |ri|
+        %li
+          = link_to ri.quantity + " " + ri.ingredient.name, edit_recipe_path(@recipe)
+%p
+  %b Description:
+  = @recipe.description
+= link_to 'Edit', edit_recipe_path(@recipe)
+|
+\#{link_to 'Back', recipes_path}

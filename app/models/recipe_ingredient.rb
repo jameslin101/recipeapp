@@ -5,7 +5,7 @@ class RecipeIngredient < ActiveRecord::Base
   belongs_to :recipe
   
   def ingredient_name=(str)
-    self.ingredient = Ingredient.find_or_create_by_name(str.downcase) if str.present?
+    self.ingredient = Ingredient.find_or_create_by_name(str.downcase.singularize) if str.present?
   end
   
   def ingredient_name

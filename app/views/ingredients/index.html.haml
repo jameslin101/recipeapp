@@ -1,17 +1,17 @@
 - model_class = Ingredient
 .page-header
-  %h1= t '.title', :default => model_class.model_name.human.pluralize
+  %h1
+    = t '.title', :default => model_class.model_name.human.pluralize
+    = link_to "Add New Ingredient", new_ingredient_path, :class => 'btn btn-primary'
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:name)
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
     - @ingredients.each do |ingredient|
       %tr
-        %td= link_to ingredient.id, ingredient_path(ingredient)
-        %td= ingredient.name
+        %td= link_to ingredient.name, ingredient_path(ingredient)
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")),edit_ingredient_path(ingredient), :class => 'btn btn-mini'
           = link_to t('.destroy', 
@@ -22,6 +22,3 @@
                                     :default => t("helpers.links.confirm", 
                                     :default => 'Are you sure?')),
                                     :class => 'btn btn-mini btn-danger'                                                       
-= link_to t('.new', :default => t("helpers.links.new")), 
-            new_ingredient_path,
-            :class => 'btn btn-primary'

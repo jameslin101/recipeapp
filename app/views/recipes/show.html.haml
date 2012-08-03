@@ -12,6 +12,16 @@
       = model_class.human_attribute_name(:description)
       \:
   %dd= @recipe.description
+  %dt
+    %strong
+      = model_class.human_attribute_name(:ingredients)
+      \:
+  %dd
+    - @recipe.recipe_ingredients.each do |ri|
+      - output_string = pluralize(ri.quantity, ri.ingredient_name) if ri.ingredient_name
+      = output_string
+      <br>
+  
 .form-actions
   = link_to t('.back', :default => t("helpers.links.back")), |
     recipes_path, :class => 'btn'                            |

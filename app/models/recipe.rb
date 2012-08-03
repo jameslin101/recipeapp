@@ -5,7 +5,9 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients, :through => :recipe_ingredients, :uniq => true
 
   accepts_nested_attributes_for :recipe_ingredients, 
-                                :reject_if => lambda { |a| a[:content].blank? }, 
-                                :allow_destroy => true
-  
+                                :allow_destroy => true,
+                                :reject_if => lambda { |a| a[:quantity].blank? ||
+                                                           a[:ingredient_name].blank?}
+                                
+
 end

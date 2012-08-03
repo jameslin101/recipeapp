@@ -17,11 +17,12 @@ pre {
 
 a {
   color: #000;
-  &:visited {
-    color: #666; }
-  &:hover {
-    color: #fff;
-    background-color: #000; } }
+//  &:visited {
+//    color: @white; }
+//  &:hover {
+//    color: #fff;
+//    background-color: #000; } 
+}
 
 div {
   &.field, &.actions {
@@ -54,3 +55,15 @@ div {
   ul li {
     font-size: 12px;
     list-style: square; } }
+    
+.well {
+  padding: 10px;
+}
+
+.recipe_label {
+  text-align: center;
+}
+input.inline {
+  display: inline;
+  text-align: center;
+}

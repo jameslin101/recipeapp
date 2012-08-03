@@ -1,17 +1,24 @@
-%h1 Listing recipes
-%table
-  %tr
-    %th Name
-    %th Description
-    %th
-    %th
-    %th
-  - @recipes.each do |recipe|
+- model_class = Recipe
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
     %tr
-      %td= recipe.name
-      %td= recipe.description
-      %td= link_to 'Show', recipe
-      %td= link_to 'Edit', edit_recipe_path(recipe)
-      %td= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Recipe', new_recipe_path
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:description)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @recipes.each do |recipe|
+      %tr
+        %td= link_to recipe.id, recipe_path(recipe)
+        %td= recipe.name
+        %td= recipe.description
+        %td
+          =link_to "Edit", edit_recipe_path(recipe), :class => 'btn btn-mini btn-info'     
+          =link_to "Delete", recipe_path(recipe),
+                             :method => :delete,
+                             :confirm => t('.confirm',
+                             :default => t("helpers.links.confirm", :default => 'Are you sure?')), 
+                             :class => 'btn btn-mini btn-danger'
+= link_to "Create New Recipe", new_recipe_path, :class => 'btn btn-primary'

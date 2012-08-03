@@ -1,0 +1,13 @@
+%fieldset
+  %row.span12
+    .span1
+      = f.text_field :quantity, :class => 'inline input-small'
+    .span2
+      = f.text_field :ingredient_name, "autocomplete"=>"off",
+                                    "data-provide" => "typeahead", 
+                                    "class" => "inline", 
+                                    "data-items"=>"4",
+                                    "data-source"=>"#{ Ingredient.pluck('name')}"
+    .span2
+      = f.hidden_field :_destroy                  
+      = link_to '<i class="icon-remove-sign"></i> Remove'.html_safe, '#', class:"remove_ingredient"

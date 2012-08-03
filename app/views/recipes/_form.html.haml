@@ -1,28 +1,22 @@
-= form_for(@recipe) do |f|
-  - if @recipe.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@recipe.errors.count, "error")
-        prohibited this recipe from being saved:
-      %ul
-        - @recipe.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :description
-    %br/
-    = f.text_area :description
-  .field
-    %ol
-      Ingredients:
-      =f.fields_for :recipe_ingredients, @recipe.recipe_ingredients.each do |recipe_ingredients_fields|
-        %li
-          = recipe_ingredients_fields.label :quantity
-          = recipe_ingredients_fields.text_field :quantity
-          = recipe_ingredients_fields.label :ingredient_name
-          = recipe_ingredients_fields.text_field :ingredient_name
-  .actions
-    = f.submit
+= form_for @recipe, :html => { :class => 'form-horizontal' } do |f|
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'text_field'
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_area :description, :class => 'input-xlarge', :rows => 5
+  %fieldset
+    .span1.recipe_label
+      Quantity
+    .span2.recipe_label
+      Ingredient
+  =f.fields_for :recipe_ingredients do |ri|
+    = render 'recipe_ingredients_fields', f:ri
+  =link_to_add_ingredient "Add Ingredient", f, :recipe_ingredients
+  
+  .form-actions
+    = f.submit "Update Recipe", :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), 
+      recipes_path, :class => 'btn'                                

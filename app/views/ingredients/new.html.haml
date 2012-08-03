@@ -1,3 +1,5 @@
-%h1 New ingredient
-= render 'form'
-= link_to 'Back', ingredients_path
+- model_class = Ingredient
+.page-header
+  %h1= t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human, |
+      :default => "New #{model_class.model_name.human}")                                      |
+= render :partial => 'form'

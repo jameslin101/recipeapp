@@ -1,15 +1,27 @@
-%h1 Listing ingredients
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-  - @ingredients.each do |ingredient|
+- model_class = Ingredient
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
     %tr
-      %td= ingredient.name
-      %td= link_to 'Show', ingredient
-      %td= link_to 'Edit', edit_ingredient_path(ingredient)
-      %td= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Ingredient', new_ingredient_path
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:name)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @ingredients.each do |ingredient|
+      %tr
+        %td= link_to ingredient.id, ingredient_path(ingredient)
+        %td= ingredient.name
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")),edit_ingredient_path(ingredient), :class => 'btn btn-mini'
+          = link_to t('.destroy', 
+                      :default => t("helpers.links.destroy")), 
+                      ingredient_path(ingredient),
+                      :method => :delete,
+                      :confirm => t('.confirm', 
+                                    :default => t("helpers.links.confirm", 
+                                    :default => 'Are you sure?')),
+                                    :class => 'btn btn-mini btn-danger'                                                       
+= link_to t('.new', :default => t("helpers.links.new")), 
+            new_ingredient_path,
+            :class => 'btn btn-primary'

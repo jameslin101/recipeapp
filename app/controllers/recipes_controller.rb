@@ -1,6 +1,9 @@
 class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
+  
+  before_filter :authenticate_user!, :only =>[:new, :edit, :create, :update, :destroy]
+  
   def index
     @recipes = Recipe.all
 

@@ -11,4 +11,8 @@ class RecipeIngredient < ActiveRecord::Base
   def ingredient_name
     self.ingredient.name if self.ingredient
   end
+  
+  def recipe_name
+    self.recipe.name if self.recipe
+  end
 end

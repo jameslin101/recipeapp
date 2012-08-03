@@ -7,7 +7,7 @@ class Ingredient < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive => false
   
   def name=(str)
-    write_attribute(:name, str.downcase)
+    write_attribute(:name, str.strip.downcase.singularize)
   end
   
 end
